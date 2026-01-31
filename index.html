@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑心面具商人模拟器 - Sinister Mask Merchant Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen active">
+            <div class="title-container">
+                <h1 class="game-title">阴阳面具坊</h1>
+                <p class="subtitle">Sinister Mask Merchant Simulator</p>
+            </div>
+            <div class="menu-buttons">
+                <button class="btn-primary" onclick="game.startGame()">开始游戏</button>
+                <button class="btn-secondary" onclick="game.showGallery()">面具图鉴</button>
+                <button class="btn-secondary" onclick="game.showReports()">战报档案</button>
+            </div>
+            <div class="game-stats">
+                <p>第 <span id="menu-day">1</span> 日</p>
+            </div>
+        </div>
+
+        <!-- Shop Interface -->
+        <div id="shop-screen" class="screen">
+            <div class="shop-header">
+                <h2>阴阳面具坊 · 第<span id="shop-day">1</span>日</h2>
+                <div class="status-bar">
+                    <span>💰 金钱: <span id="money">500</span>两</span>
+                    <span>⭐ 声望: <span id="reputation">3</span>/5</span>
+                    <span>📊 信誉: <span id="credit">良好</span></span>
+                </div>
+            </div>
+            <div class="shop-content">
+                <div class="shop-scene">
+                    <div class="mask-wall"></div>
+                    <div class="waiting-text">等待顾客中...</div>
+                </div>
+                <div class="shop-actions">
+                    <button class="btn-primary" onclick="game.nextCustomer()">下一位顾客</button>
+                    <button class="btn-secondary" onclick="game.showReports()">查看战报</button>
+                    <button class="btn-secondary" onclick="game.backToMenu()">返回主菜单</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialogue Interface -->
+        <div id="dialogue-screen" class="screen">
+            <div class="dialogue-header">
+                <div class="customer-info">
+                    <span>姓名: <span id="customer-name"></span></span>
+                    <span>职业: <span id="customer-job"></span></span>
+                    <span>危险度: <span id="customer-danger"></span></span>
+                </div>
+            </div>
+            <div class="dialogue-content">
+                <div class="dialogue-left">
+                    <h3>对话历史</h3>
+                    <div id="dialogue-history" class="dialogue-history"></div>
+                    <div class="clues-section">
+                        <h4>已知线索</h4>
+                        <div id="clues-list"></div>
+                    </div>
+                </div>
+                <div class="dialogue-center">
+                    <div class="customer-portrait">
+                        <div id="customer-avatar" class="avatar"></div>
+                        <div class="trust-bar">
+                            <div class="trust-label">信任度</div>
+                            <div class="trust-progress">
+                                <div id="trust-fill" class="trust-fill"></div>
+                            </div>
+                            <div class="trust-value"><span id="trust-value">50</span>%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dialogue-right">
+                    <h3>观察笔记</h3>
+                    <div id="observations"></div>
+                </div>
+            </div>
+            <div class="dialogue-options">
+                <h3>对话选项</h3>
+                <div id="dialogue-choices"></div>
+            </div>
+            <div class="crafting-action-bar">
+                <button class="btn-crafting" onclick="game.startCrafting()">🎭 开始制作面具</button>
+            </div>
+        </div>
+
+        <!-- Crafting Interface -->
+        <div id="crafting-screen" class="screen">
+            <div class="crafting-header">
+                <div id="order-info" class="order-info"></div>
+            </div>
+            <div class="crafting-content">
+                <div class="crafting-left">
+                    <h3>基底面具</h3>
+                    <div id="base-masks" class="base-masks"></div>
+                    <h3>纹样库</h3>
+                    <div id="patterns" class="patterns"></div>
+                </div>
+                <div class="crafting-center">
+                    <div class="crafting-money">
+                        <span>💰 金钱: <span id="crafting-money">0</span></span>
+                    </div>
+                    <h3>工作台</h3>
+                    <div id="mask-preview" class="mask-preview">
+                        <div class="mask-display">选择基底面具开始制作</div>
+                    </div>
+                    <div class="current-attributes">
+                        <h4>当前属性</h4>
+                        <div id="attribute-bars"></div>
+                        <div class="visibility-meter">
+                            <span>显眼度: <span id="visibility">0</span>%</span>
+                            <div class="visibility-bar">
+                                <div id="visibility-fill" class="visibility-fill"></div>
+                            </div>
+                            <span id="visibility-status" class="status-safe">✓ 安全</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="crafting-right">
+                    <h3>材料库</h3>
+                    <div id="materials" class="materials"></div>
+                    <h3>符文库</h3>
+                    <div id="runes" class="runes"></div>
+                </div>
+            </div>
+            <div class="crafting-actions">
+                <button class="btn-secondary" onclick="game.cancelCrafting()">取消</button>
+                <button class="btn-primary" onclick="game.completeMask()">完成制作</button>
+            </div>
+        </div>
+
+        <!-- Delivery Interface -->
+        <div id="delivery-screen" class="screen">
+            <div class="delivery-content">
+                <h2>面具交付</h2>
+                <div id="final-mask" class="final-mask-display"></div>
+                <div id="customer-reaction" class="customer-reaction"></div>
+                <div id="inspection-result" class="inspection-result"></div>
+                <div class="delivery-actions">
+                    <button id="delivery-btn" class="btn-primary" onclick="game.completeDelivery()">继续</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Battle Report Interface -->
+        <div id="report-screen" class="screen">
+            <div class="report-content">
+                <div class="report-scroll">
+                    <h2 id="report-title"></h2>
+                    <div id="report-text" class="report-text"></div>
+                    <div id="report-rewards" class="report-rewards"></div>
+                    <div id="report-reputation" class="report-reputation"></div>
+                </div>
+                <button class="btn-primary" onclick="game.closeReport()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

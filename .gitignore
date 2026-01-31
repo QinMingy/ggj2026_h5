@@ -1,0 +1,21 @@
+# VSCode配置
+.vscode/
+*.code-workspace
+
+# Visual Studio配置
+.vs/
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Rider/IntelliJ配置
+.idea/
+*.sln.iml
