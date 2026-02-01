@@ -14,8 +14,10 @@ const CUSTOMERS = [
         job: '剑客',
         avatar: '🗡️',
         danger: '★★☆☆☆',
-        requirement: '金',
-        requiredAmount: 5,
+        requirements: [
+            { element: '金', amount: 5, weight: 0.7 },
+            { element: '火', amount: 3, weight: 0.3 }
+        ],
         weakness: '木',
         dialogues: [
             { type: 'intro', text: '我需要一个提升武力的面具，能让我的剑术更加凌厉。', trustChange: 0 },
@@ -38,8 +40,9 @@ const CUSTOMERS = [
         job: '书生',
         avatar: '📚',
         danger: '★☆☆☆☆',
-        requirement: '木',
-        requiredAmount: 4,
+        requirements: [
+            { element: '木', amount: 4, weight: 1.0 }
+        ],
         weakness: '火',
         dialogues: [
             { type: 'intro', text: '我想要一个增强智慧的面具，帮助我科举高中。', trustChange: 0 },
@@ -62,15 +65,17 @@ const CUSTOMERS = [
         job: '商人',
         avatar: '💰',
         danger: '★★★☆☆',
-        requirement: '土',
-        requiredAmount: 5,
+        requirements: [
+            { element: '土', amount: 5, weight: 0.6 },
+            { element: '金', amount: 3, weight: 0.4 }
+        ],
         weakness: '木',
         dialogues: [
             { type: 'intro', text: '给我做个招财进宝的面具，要最好的！', trustChange: 0 },
             { type: 'question', text: '您是做什么生意的？', response: '海上贸易，常年在船上漂泊。最近总觉得运气不好。', clue: '常年海上（水克土）', trustChange: -12 },
             { type: 'question', text: '您最近遇到什么麻烦？', response: '总是遇到海盗，他们的木船来去如风，防不胜防。', clue: '怕木船（木克土的延伸）', trustChange: -15 },
             { type: 'question', text: '生意如何？', response: '还行，就是这两年不太顺。', clue: null, trustChange: -10 },
-            { type: 'question', text: '您的财富从何而来？', response: '（警觉）这个...做生意赚的，你问这么多干嘛？', clue: '对财富来源敏感', trustChange: -22 },
+            { type: 'question', text: '您的财富从何而来？', response: '（警觉）这个...做生意赚的，你问这么多干嘛？', clue: '对财富来源敏感', trustChange: -30 },
             { type: 'question', text: '需要什么价位的面具？', response: '钱不是问题，最好的给我来！', clue: null, trustChange: -8 },
             { type: 'observe', text: '[观察他的配饰]', response: '他戴着金银首饰，但手上有很多木刺的痕迹。', clue: '手上有木刺痕迹', trustChange: -8 },
             { type: 'observe', text: '[观察他的表情]', response: '他说话时眼神闪烁，似乎有什么心事。', clue: '心中有事', trustChange: -10 }
@@ -86,8 +91,10 @@ const CUSTOMERS = [
         job: '猎人',
         avatar: '🏹',
         danger: '★★☆☆☆',
-        requirement: '水',
-        requiredAmount: 4,
+        requirements: [
+            { element: '水', amount: 4, weight: 0.7 },
+            { element: '木', amount: 2, weight: 0.3 }
+        ],
         weakness: '土',
         dialogues: [
             { type: 'intro', text: '我需要一个能隐匿行踪的面具，方便打猎。', trustChange: 0 },
@@ -109,8 +116,11 @@ const CUSTOMERS = [
         job: '道士',
         avatar: '☯️',
         danger: '★★★★☆',
-        requirement: '火',
-        requiredAmount: 6,
+        requirements: [
+            { element: '火', amount: 6, weight: 0.5 },
+            { element: '木', amount: 4, weight: 0.3 },
+            { element: '土', amount: 3, weight: 0.2 }
+        ],
         weakness: '水',
         dialogues: [
             { type: 'intro', text: '贫道需要一个增强法力的面具，用于降妖除魔。', trustChange: 0 },
@@ -133,8 +143,10 @@ const CUSTOMERS = [
         job: '郎中',
         avatar: '💊',
         danger: '★★☆☆☆',
-        requirement: '木',
-        requiredAmount: 5,
+        requirements: [
+            { element: '木', amount: 5, weight: 0.7 },
+            { element: '水', amount: 3, weight: 0.3 }
+        ],
         weakness: '金',
         dialogues: [
             { type: 'intro', text: '老夫行医多年，需要一个能增强望闻问切之能的面具。', trustChange: 0 },
@@ -156,8 +168,10 @@ const CUSTOMERS = [
         img:'character_30.png',
         avatar: '🔨',
         danger: '★★★☆☆',
-        requirement: '金',
-        requiredAmount: 6,
+        requirements: [
+            { element: '金', amount: 6, weight: 0.6 },
+            { element: '土', amount: 4, weight: 0.4 }
+        ],
         weakness: '火',
         dialogues: [
             { type: 'intro', text: '俺要个能让俺打铁更有力气的面具！', trustChange: 0 },
@@ -179,8 +193,9 @@ const CUSTOMERS = [
         img:'character_6.png',
         avatar: '🎣',
         danger: '★☆☆☆☆',
-        requirement: '水',
-        requiredAmount: 4,
+        requirements: [
+            { element: '水', amount: 4, weight: 1.0 }
+        ],
         weakness: '土',
         dialogues: [
             { type: 'intro', text: '俺想要个能让俺捕更多鱼的面具。', trustChange: 0 },
@@ -202,8 +217,12 @@ const CUSTOMERS = [
         img:'character_4.png',
         avatar: '⚔️',
         danger: '★★★★★',
-        requirement: '金',
-        requiredAmount: 7,
+        requirements: [
+            { element: '金', amount: 7, weight: 0.4 },
+            { element: '火', amount: 5, weight: 0.3 },
+            { element: '土', amount: 4, weight: 0.2 },
+            { element: '水', amount: 3, weight: 0.1 }
+        ],
         weakness: '火',
         dialogues: [
             { type: 'intro', text: '本将军需要一个能增强战力的面具，不日将出征北伐。', trustChange: 0 },
@@ -483,7 +502,10 @@ class Game {
 
         const customer = this.state.currentCustomer;
         const orderInfo = document.getElementById('order-info');
-        orderInfo.textContent = `${customer.name}（${customer.job}）：需要${ELEMENTS[customer.requirement].icon}${customer.requirement}属性+${customer.requiredAmount}的面具`;
+        const reqText = customer.requirements.map(req => 
+            `${ELEMENTS[req.element].icon}${req.element}+${req.amount}`
+        ).join(' ');
+        orderInfo.textContent = `${customer.name}（${customer.job}）：需要${reqText}的面具`;
 
         this.renderBaseMasks();
         this.renderMaterials();
@@ -665,20 +687,44 @@ class Game {
         }
 
         const customer = this.state.currentCustomer;
-        const requiredElement = customer.requirement;
-        const requiredAmount = customer.requiredAmount;
-        const currentAmount = this.state.maskAttributes[requiredElement];
+        
+        // 计算加权平均完成度
+        let totalWeightedRatio = 0;
+        let details = [];
+        let allSatisfied = true;
+        
+        customer.requirements.forEach(req => {
+            const currentAmount = this.state.maskAttributes[req.element] || 0;
+            const ratio = Math.min(1, currentAmount / req.amount);
+            totalWeightedRatio += ratio * req.weight;
+            
+            details.push({
+                element: req.element,
+                required: req.amount,
+                current: currentAmount,
+                ratio: ratio,
+                weight: req.weight
+            });
+            
+            if (currentAmount < req.amount) {
+                allSatisfied = false;
+            }
+        });
+        
+        this.state.attributeRatio = totalWeightedRatio;
 
-        // 计算属性比例，最高100%
-        this.state.attributeRatio = Math.min(1, currentAmount / requiredAmount);
-
-        if (currentAmount < requiredAmount) {
+        if (!allSatisfied) {
             const ratio = Math.floor(this.state.attributeRatio * 100);
             const expectedPayment = Math.floor(customer.price * this.state.attributeRatio);
+            
+            let detailText = details.map(d => 
+                `${d.element}: ${d.current}/${d.required} (权重${Math.floor(d.weight * 100)}%)`
+            ).join('\n');
+            
             const confirmSubmit = confirm(
-                `面具的${requiredElement}属性不足！\n` +
-                `需要: ${requiredAmount}，当前: ${currentAmount}\n` +
-                `完成度: ${ratio}%\n` +
+                `面具属性不足！\n\n` +
+                detailText + `\n\n` +
+                `总体完成度: ${ratio}%\n` +
                 `预计获得金钱: ${expectedPayment}两（原价${customer.price}两）\n\n` +
                 `是否仍要提交？`
             );
