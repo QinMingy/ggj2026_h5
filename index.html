@@ -122,6 +122,10 @@
                             <span id="visibility-status" class="status-safe">✓ 安全</span>
                         </div>
                     </div>
+                    <div class="crafting-actions">
+                        <button class="btn-secondary" onclick="game.cancelCrafting()">取消</button>
+                        <button class="btn-primary" onclick="game.completeMask()">完成制作</button>
+                    </div>
                 </div>
                 <div class="crafting-right">
                     <h3>材料库</h3>
@@ -129,10 +133,6 @@
                     <h3>符文库</h3>
                     <div id="runes" class="runes"></div>
                 </div>
-            </div>
-            <div class="crafting-actions">
-                <button class="btn-secondary" onclick="game.cancelCrafting()">取消</button>
-                <button class="btn-primary" onclick="game.completeMask()">完成制作</button>
             </div>
         </div>
 

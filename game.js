@@ -799,7 +799,8 @@ class Game {
                 this.state.pendingReports.push({
                     customer: customer,
                     mask: { ...this.state.maskAttributes },
-                    counterPower: this.state.maskAttributes[customer.weakness]
+                    counterPower: this.state.maskAttributes[customer.weakness],
+                    dueDay: this.state.day + 1
                 });
             }
 
@@ -820,21 +821,27 @@ class Game {
 
     completeDelivery() {
         this.state.day++;
-        
-        if (this.state.completedOrders.length >= 3 && this.state.pendingReports.length > 0) {
-            this.showBattleReport();
-        } else {
-            this.showScreen('shop-screen');
+
+        const dueIndex = this.state.pendingReports.findIndex(r => (r.dueDay || 0) <= this.state.day);
+        if (dueIndex !== -1) {
+            this.showBattleReport(dueIndex);
+            return;
         }
+
+        this.showScreen('shop-screen');
     }
 
-    showBattleReport() {
+    showBattleReport(reportIndex = 0) {
         if (this.state.pendingReports.length === 0) {
             this.showScreen('shop-screen');
             return;
         }
 
-        const report = this.state.pendingReports.shift();
+        if (reportIndex < 0 || reportIndex >= this.state.pendingReports.length) {
+            reportIndex = 0;
+        }
+
+        const report = this.state.pendingReports.splice(reportIndex, 1)[0];
         this.showScreen('report-screen');
 
         document.getElementById('report-title').textContent = `第${this.state.day}日 · 噩耗传来`;
@@ -875,11 +882,13 @@ class Game {
     }
 
     closeReport() {
-        if (this.state.pendingReports.length > 0) {
-            this.showBattleReport();
-        } else {
-            this.showScreen('shop-screen');
+        const dueIndex = this.state.pendingReports.findIndex(r => (r.dueDay || 0) <= this.state.day);
+        if (dueIndex !== -1) {
+            this.showBattleReport(dueIndex);
+            return;
         }
+
+        this.showScreen('shop-screen');
     }
 
     showGallery() {

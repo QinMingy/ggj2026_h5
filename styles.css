@@ -353,6 +353,15 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 6px;
+    scrollbar-width: none;
+}
+
+#dialogue-choices::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .choice-btn {
@@ -469,6 +478,18 @@ body {
     font-size: 14px;
 }
 
+#materials .material-item {
+    font-size: 20px;
+}
+
+#runes .rune-item {
+    font-size: 20px;
+}
+
+#base-masks .base-mask-item {
+    font-size: 20px;
+}
+
 .base-mask-item:hover, .pattern-item:hover, .material-item:hover, .rune-item:hover {
     border-color: #B8860B;
     background: rgba(184, 134, 11, 0.2);
@@ -511,6 +532,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .crafting-center h3 {
@@ -520,7 +543,7 @@ body {
 }
 
 .mask-preview {
-    flex: 1;
+    flex: 0 0 auto;
     background: rgba(45, 45, 48, 0.6);
     border: 3px solid #B8860B;
     border-radius: 8px;
@@ -528,7 +551,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    min-height: 300px;
+    height: clamp(220px, 32vh, 320px);
 }
 
 .mask-display {
@@ -617,11 +640,12 @@ body {
 
 .crafting-actions {
     background: rgba(45, 45, 48, 0.8);
-    padding: 20px;
-    border-top: 2px solid #B8860B;
+    padding: 10px 12px;
+    border-top: 1px solid rgba(184, 134, 11, 0.6);
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .delivery-content {
